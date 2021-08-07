@@ -137,6 +137,7 @@ def get_readable_message():
                             f" | <b>Peers :</b> {download.aria_download().connections}"
                     except:
                         pass
+                    msg += f'\n<b>User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
                     try:
                         msg += f"\n<b>Seeders :</b> {download.torrent_info().num_seeds}" \
                             f" | <b>Leechers :</b> {download.torrent_info().num_leechs}"
