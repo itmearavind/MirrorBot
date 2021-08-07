@@ -198,7 +198,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\ncc: {uname}'
+                msg += f'\n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n<b>#𝗨𝗽𝗹𝗼𝗮𝗱𝗲𝗱 𝗧𝗼 𝗧𝗲𝗮𝗺 𝗗𝗿𝗶𝘃𝗲 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆 ✅\n\n🙋🏻‍♂️ 𝗥𝗲𝗾𝘂𝗲𝘀𝘁𝗲𝗱 𝗕𝘆 : {uname} \n\n🏷 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗕𝘆 : </b><b>@HiroshiBots</b> <b>| </b><b>@Hiroshi_MirrorZone</b>\n\n<b>📛 𝗗𝗢 𝗡𝗢𝗧 𝗦𝗛𝗔𝗥𝗘 𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞 𝗣𝗨𝗕𝗟𝗜𝗖𝗟𝗬 📛</b>\n'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
