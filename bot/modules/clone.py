@@ -69,7 +69,7 @@ def cloneNode(update, context):
         else:
             uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
         if uname is not None:
-            cc = f'\n\n══════════════════════════════════════════<b>\n\n**#Uploaded To Team Drive SucessFully✅**\n\n**🙋🏻‍♂️ Requested By :- {uname}**\n\n**🏷 Powerded By :- @HiroshiBots || @CF_Linksz**\n\n**📛 Do Not Share Index Link Publicly 📛**'
+            cc = f'\n\n══════════════════════════════════════════\n\n**#Uploaded To Team Drive SucessFully✅**\n\n**🙋🏻‍♂️ Requested By :- {uname}**\n\n**🏷 Powerded By :- @HiroshiBots || @CF_Linksz**\n\n**📛 Do Not Share Index Link Publicly 📛**'
             men = f'{uname} '
         if button == "cancelled" or button == "":
             sendMessage(men + result, context.bot, update)
