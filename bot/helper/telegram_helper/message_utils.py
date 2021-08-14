@@ -74,9 +74,9 @@ def update_all_messages():
     msg, buttons = get_readable_message()
     if msg is None:
         return
-    msg += f"<b>CPU :</b> {psutil.cpu_percent()}%" \
-           f" <b>RAM :</b> {psutil.virtual_memory().percent}%" \
-           f" <b>DISK :</b> {psutil.disk_usage('/').percent}%"
+    msg += f"<b>CPU :-</b> {psutil.cpu_percent()}%" \
+           f" <b>RAM :-</b> {psutil.virtual_memory().percent}%" \
+           f" <b>DISK :-</b> {psutil.disk_usage('/').percent}%"
     with download_dict_lock:
         dlspeed_bytes = 0
         uldl_bytes = 0
@@ -94,15 +94,15 @@ def update_all_messages():
                     uldl_bytes += float(speedy.split('M')[0]) * 1048576
         dlspeed = get_readable_file_size(dlspeed_bytes)
         ulspeed = get_readable_file_size(uldl_bytes)
-        msg += f"\n<b>FREE :</b> {free} | <b>UPTIME :</b> {currentTime}\n<b>DL :</b> {dlspeed}/s 🔻 | <b>UL :</b> {ulspeed}/s 🔺\n"
+        msg += f"\n<b>FREE :-</b> {free} | <b>UPTIME :-</b> {currentTime}\n<b>DL :-</b> {dlspeed}/s 🔻 | <b>UL :-</b> {ulspeed}/s 🔺\n"
     with status_reply_dict_lock:
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
                 if len(msg) == 0:
                     msg = "Starting DL"
                 try:
-                    keyboard = [[InlineKeyboardButton("🔄 Refresh 🔄", callback_data=str(ONE)),
-                                 InlineKeyboardButton("❌ Close ❌", callback_data=str(TWO)),]]
+                    keyboard = [[InlineKeyboardButton("🔃", callback_data=str(ONE)),
+                                 InlineKeyboardButton("❌", callback_data=str(TWO)),]]
                     editMessage(msg, status_reply_dict[chat_id], reply_markup=InlineKeyboardMarkup(keyboard))
                 except Exception as e:
                     LOGGER.error(str(e))
@@ -113,7 +113,7 @@ ONE, TWO = range(2)
 def refresh(update, context):
     query = update.callback_query
     query.answer()
-    query.edit_message_text(text="Let Me Refresh 🥱")
+    query.edit_message_text(text="Refreshing Status 🥱")
     time.sleep(2)
     update_all_messages()
 
@@ -132,9 +132,9 @@ def sendStatusMessage(msg, bot):
     progress, buttons = get_readable_message()
     if progress is None:
         progress, buttons = get_readable_message()
-    progress += f"<b>CPU :</b> {psutil.cpu_percent()}%" \
-           f" <b>RAM :</b> {psutil.virtual_memory().percent}%" \
-           f" <b>DISK :</b> {psutil.disk_usage('/').percent}%"
+    progress += f"<b>CPU :-</b> {psutil.cpu_percent()}%" \
+           f" <b>RAM :-</b> {psutil.virtual_memory().percent}%" \
+           f" <b>DISK :-</b> {psutil.disk_usage('/').percent}%"
     with download_dict_lock:
         dlspeed_bytes = 0
         uldl_bytes = 0
@@ -152,7 +152,7 @@ def sendStatusMessage(msg, bot):
                     uldl_bytes += float(speedy.split('M')[0]) * 1048576
         dlspeed = get_readable_file_size(dlspeed_bytes)
         ulspeed = get_readable_file_size(uldl_bytes)
-        progress += f"\n<b>FREE :</b> {free} | <b>UPTIME :</b> {currentTime}\n<b>DL :</b> {dlspeed}/s 🔻 | <b>UL :</b> {ulspeed}/s 🔺\n"
+        progress += f"\n<b>FREE :-</b> {free} | <b>UPTIME :-</b> {currentTime}\n<b>DL :-</b> {dlspeed}/s 🔻 | <b>UL :-</b> {ulspeed}/s 🔺\n"
     with status_reply_dict_lock:
         if msg.message.chat.id in list(status_reply_dict.keys()):
             try:
