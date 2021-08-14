@@ -101,8 +101,8 @@ def update_all_messages():
                 if len(msg) == 0:
                     msg = "Starting DL"
                 try:
-                    keyboard = [[InlineKeyboardButton("🔃", callback_data=str(ONE)),
-                                 InlineKeyboardButton("❌", callback_data=str(TWO)),]]
+                    keyboard = [[InlineKeyboardButton("🔃 Refresh Meh", callback_data=str(ONE)),
+                                 InlineKeyboardButton("❌ Close Meh", callback_data=str(TWO)),]]
                     editMessage(msg, status_reply_dict[chat_id], reply_markup=InlineKeyboardMarkup(keyboard))
                 except Exception as e:
                     LOGGER.error(str(e))
