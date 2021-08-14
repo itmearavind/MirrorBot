@@ -11,7 +11,7 @@ from telegram.error import TimedOut, BadRequest
 
 COUNT = 0
 PAGE_NO = 1
-.
+
 def sendMessage(text: str, bot, update: Update):
     try:
         return bot.send_message(update.message.chat_id,
