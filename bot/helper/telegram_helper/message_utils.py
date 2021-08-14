@@ -9,7 +9,9 @@ from bot import dispatcher, AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, \
 from bot.helper.ext_utils.bot_utils import get_readable_message, get_readable_file_size, get_readable_time, MirrorStatus, setInterval
 from telegram.error import TimedOut, BadRequest
 
-
+COUNT = 0
+PAGE_NO = 1
+.
 def sendMessage(text: str, bot, update: Update):
     try:
         return bot.send_message(update.message.chat_id,
@@ -68,6 +70,7 @@ def delete_all_messages():
 
 
 def update_all_messages():
+    msg = ""
     INDEX = 0
         if STATUS_LIMIT is not None:
             dick_no = len(download_dict)
