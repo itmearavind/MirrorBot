@@ -3,7 +3,7 @@ from telegram.message import Message
 from telegram.update import Update
 import psutil, shutil
 import time
-from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, \
+from bot import dispatcher, AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, \
     status_reply_dict, status_reply_dict_lock, download_dict, download_dict_lock, botStartTime, Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL
 from bot.helper.ext_utils.bot_utils import get_readable_message, get_readable_file_size, get_readable_time, MirrorStatus, setInterval
 from telegram.error import TimedOut, BadRequest
