@@ -122,7 +122,7 @@ def get_readable_message():
                 msg += f"<b>➜ Filename :-</b> <code>{download.name()}</code>"
                 msg += f"\n<b>➜ Status :-</b> <b>{download.status()}</b>"
                 if download.status() != MirrorStatus.STATUS_ARCHIVING and download.status() != MirrorStatus.STATUS_EXTRACTING:
-                    msg += f"\n<b>➜ Progress :- <code>{get_progress_bar_string(download)} {download.progress()}</code>"
+                    msg += f"\n<b>➜ Progress :--</b> <code>{get_progress_bar_string(download)} {download.progress()}</code>"
                     if download.status() == MirrorStatus.STATUS_DOWNLOADING:
                         msg += f"\n<b>➜ Downloaded :-</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                     elif download.status() == MirrorStatus.STATUS_CLONING:
