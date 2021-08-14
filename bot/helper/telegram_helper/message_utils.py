@@ -1,4 +1,5 @@
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQueryHandler
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import CallbackQueryHandler
 from telegram.message import Message
 from telegram.update import Update
 import psutil, shutil
