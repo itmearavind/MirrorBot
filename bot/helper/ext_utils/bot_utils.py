@@ -122,7 +122,7 @@ def get_readable_message():
                 msg += f"<b>➜ Filename :-</b> <code>{download.name()}</code>"
                 msg += f"\n<b>➜ Status :-</b> <b>{download.status()}</b>"
                 if download.status() != MirrorStatus.STATUS_ARCHIVING and download.status() != MirrorStatus.STATUS_EXTRACTING:
-                    msg += f"\n<b>➜ Progress :--</b> <code>{get_progress_bar_string(download)} {download.progress()}</code>"
+                    msg += f"\n<b>➜ Progress :-</b> <code>{get_progress_bar_string(download)} {download.progress()}</code>"
                     if download.status() == MirrorStatus.STATUS_DOWNLOADING:
                         msg += f"\n<b>➜ Downloaded :-</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                     elif download.status() == MirrorStatus.STATUS_CLONING:
@@ -137,7 +137,7 @@ def get_readable_message():
                             f" | <b>➜ Peers :-</b> {download.aria_download().connections}"
                     except:
                         pass
-                    msg += f'\n<b>➜ Requested By :- </b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
+                    msg += f'\n<b>➜ Requested By :- <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a></b>'
                     try:
                         msg += f"\n<b>➜ Seeders :-</b> {download.torrent_info().num_seeds}" \
                             f" | <b>➜ Leechers :-</b> {download.torrent_info().num_leechs}"
