@@ -5,12 +5,10 @@ from telegram.update import Update
 import psutil, shutil
 import time
 from bot import dispatcher, AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, \
-    status_reply_dict, status_reply_dict_lock, download_dict, download_dict_lock, botStartTime, Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL, STATUS_LIMIT
+    status_reply_dict, status_reply_dict_lock, download_dict, download_dict_lock, botStartTime, Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL
 from bot.helper.ext_utils.bot_utils import get_readable_message, get_readable_file_size, get_readable_time, MirrorStatus, setInterval
 from telegram.error import TimedOut, BadRequest
 
-COUNT = 0
-PAGE_NO = 1
 
 def sendMessage(text: str, bot, update: Update):
     try:
@@ -70,18 +68,6 @@ def delete_all_messages():
 
 
 def update_all_messages():
-    msg = ""
-    INDEX = 0
-        if STATUS_LIMIT is not None:
-            dick_no = len(download_dict)
-            global pages
-            pages = math.ceil(dick_no/STATUS_LIMIT)
-            if PAGE_NO > pages and pages != 0:
-                globals()['COUNT'] -= STATUS_LIMIT
-                globals()['PAGE_NO'] -= 1
-        for download in list(download_dict.values()):
-            INDEX += 1
-            if INDEX > COUNT:
     total, used, free = shutil.disk_usage('.')
     free = get_readable_file_size(free)
     currentTime = get_readable_time(time.time() - botStartTime)
@@ -109,7 +95,7 @@ def update_all_messages():
         dlspeed = get_readable_file_size(dlspeed_bytes)
         ulspeed = get_readable_file_size(uldl_bytes)
         msg += f"\n<b>FREE :-</b> {free} | <b>UPTIME :-</b> {currentTime}\n<b>DL :-</b> {dlspeed}/s 🔻 | <b>UL :-</b> {ulspeed}/s 🔺\n"
-        with status_reply_dict_lock:
+    with status_reply_dict_lock:
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
                 if len(msg) == 0:
@@ -121,42 +107,6 @@ def update_all_messages():
                 except Exception as e:
                     LOGGER.error(str(e))
                 status_reply_dict[chat_id].text = msg
-                
-        if STATUS_LIMIT is not None:
-                    if INDEX >= COUNT + STATUS_LIMIT:
-                        break
-        if STATUS_LIMIT is not None:
-            if INDEX > COUNT + STATUS_LIMIT:
-                return None, None
-            if dick_no > STATUS_LIMIT:
-                msg += f"Page: <code>{PAGE_NO}/{pages}</code> | <code>Tasks: {dick_no}</code>\n"
-                buttons = button_build.ButtonMaker()
-                buttons.sbutton("Previous", "pre")
-                buttons.sbutton("Next", "nex")
-                button = InlineKeyboardMarkup(buttons.build_menu(2))
-                return msg, button
-        return msg, ""
-
-def flip(update, context):
-    query = update.callback_query
-    query.answer()
-    global COUNT, PAGE_NO
-    if query.data == "nex":
-        if PAGE_NO == pages:
-            COUNT = 0
-            PAGE_NO = 1
-        else:
-            COUNT += STATUS_LIMIT
-            PAGE_NO += 1
-    elif query.data == "pre":
-        if PAGE_NO == 1:
-            COUNT = STATUS_LIMIT * (pages - 1)
-            PAGE_NO = pages
-        else:
-            COUNT -= STATUS_LIMIT
-            PAGE_NO -= 1
-    message_utils.update_all_messages()
-    
                 
 ONE, TWO = range(2)
 
@@ -221,7 +171,3 @@ def sendStatusMessage(msg, bot):
        
 dispatcher.add_handler(CallbackQueryHandler(refresh, pattern='^' + str(ONE) + '$'))
 dispatcher.add_handler(CallbackQueryHandler(close, pattern='^' + str(TWO) + '$'))    
-next_handler = CallbackQueryHandler(flip, pattern="nex", run_async=True)
-previous_handler = CallbackQueryHandler(flip, pattern="pre", run_async=True)
-dispatcher.add_handler(next_handler)
-dispatcher.add_handler(previous_handler)
